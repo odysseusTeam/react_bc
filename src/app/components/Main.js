@@ -2,7 +2,7 @@
  * Created by CHEN on 2016/1/30.
  */
 import React from 'react';
-import render  from 'react-dom';
+import ReactDOM  from 'react-dom';
 import AppBar from 'material-ui/lib/app-bar';
 import IconButton from 'material-ui/lib/icon-button';
 import NavigationClose from 'material-ui/lib/svg-icons/navigation/close';
@@ -15,7 +15,7 @@ export default class Main extends React.Component {
             <div>
                 <AppBar
                     title={"包车APP"}
-                     iconElementRight={
+                    iconElementRight={
                                                 <IconMenu
                                                 iconButtonElement={
                                                   <IconButton>
@@ -31,11 +31,10 @@ export default class Main extends React.Component {
                                               </IconMenu>
                                             }
                 />
-                {this.props.children}
+
             </div>
         )
     }
 }
-
 
 
