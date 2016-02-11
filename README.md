@@ -1,5 +1,5 @@
 # react_init
-react webpack router es6 初始化包
+react webpack router redux es6 初始化包
 
 React.js & Material UI
 #如何使用
