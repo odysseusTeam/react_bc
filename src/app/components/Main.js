@@ -9,32 +9,93 @@ import NavigationClose from 'material-ui/lib/svg-icons/navigation/close';
 import IconMenu from 'material-ui/lib/menus/icon-menu';
 import MoreVertIcon from 'material-ui/lib/svg-icons/navigation/more-vert';
 import MenuItem from 'material-ui/lib/menus/menu-item';
-export default class Main extends React.Component {
+import Avatar from 'material-ui/lib/avatar';
+import FileFolder from 'material-ui/lib/svg-icons/file/folder';
+import styles from 'material-ui/lib/styles';
+import FontIcon from 'material-ui/lib/font-icon';
+import Dialog from 'material-ui/lib/dialog';
+import FlatButton from 'material-ui/lib/flat-button';
+import { connect } from 'react-redux';
+import {open,close}from '../actions/MainAction'
+import RaisedButton from 'material-ui/lib/raised-button';
+import Badge from 'material-ui/lib/badge';
+import { Router, Route, Link, browserHistory,IndexRoute } from 'react-router'
+
+import NotificationsIcon from 'material-ui/lib/svg-icons/social/notifications';
+const customContentStyle = {
+    width: '100%',
+    maxWidth: 'none',
+};
+
+ class Main extends React.Component {
+
+
+
+
     render() {
+        const actions = [
+            <FlatButton
+                label="Ok"
+                primary={true}
+                keyboardFocused={true}
+                onClick={this.handleClose.bind(this)}
+
+            />,
+
+
+
+        ];
         return (
+
             <div>
                 <AppBar
                     title={"包车APP"}
+
                     iconElementRight={
-                                                <IconMenu
-                                                iconButtonElement={
-                                                  <IconButton>
-                                                          <MoreVertIcon />
-                                                  </IconButton>
-                                                }
-                                                targetOrigin={{horizontal: 'right', vertical: 'top'}}
-                                                anchorOrigin={{horizontal: 'right', vertical: 'top'}}
-                                              >
-                                                    <MenuItem primaryText="Refresh" />
-                                                    <MenuItem primaryText="Help" />
-                                                    <MenuItem primaryText="Sign out" />
-                                              </IconMenu>
-                                            }
+                      <Badge
+                      onClick={this._changeHandle.bind(this)}
+      badgeContent={4}
+      primary={true}
+    >
+      <NotificationsIcon />
+    </Badge>
+                    }
                 />
+                <Dialog
+                    title="用户登录"
+                    actions={actions}
+                    modal={true}
+                    open={this.props.propsValue}
+                    onClick={this.handleClose.bind(this)}
+                >
+
+                        <Link to="login">
+                            <FlatButton label="登录" primary={true}/>
+                        </Link>
+
+                    <FlatButton label="注册" primary={true} />
+                </Dialog>
+                {this.props.children}
 
             </div>
         )
     }
+
+     handleClose(){
+         this.props.dispatch(close());
+     }
+     _changeHandle(){
+
+
+         this.props.dispatch(open());
+
+     }
 }
 
+function mapStateToProps(state) {
+    return {
+        propsValue: state.mainReducer.do,
+    }
+}
+export default connect(mapStateToProps)(Main);
 

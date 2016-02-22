@@ -3,4 +3,5 @@
  */
 
 export const USER_LOGIN='USER_LOGIN';
-export  const CHAGE='CHAGE';
+export  const OPEN='OPEN';
+export  const CLOSE='CLOSE';
