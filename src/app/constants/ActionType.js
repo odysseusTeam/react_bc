@@ -5,3 +5,4 @@
 export const USER_LOGIN='USER_LOGIN';
 export  const OPEN='OPEN';
 export  const CLOSE='CLOSE';
+export  const TEST='TEST';

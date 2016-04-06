@@ -19,20 +19,26 @@ import { connect } from 'react-redux';
 import {open,close}from '../actions/MainAction'
 import RaisedButton from 'material-ui/lib/raised-button';
 import Badge from 'material-ui/lib/badge';
+import Paper from 'material-ui/lib/paper';
 import { Router, Route, Link, browserHistory,IndexRoute } from 'react-router'
 
 import NotificationsIcon from 'material-ui/lib/svg-icons/social/notifications';
+import LinearProgress from 'material-ui/lib/linear-progress';
+
+
+
 const customContentStyle = {
     width: '100%',
     maxWidth: 'none',
+    display: 'flex',
+
 };
 
- class Main extends React.Component {
-
-
-
+class Main extends React.Component {
+ 
 
     render() {
+
         const actions = [
             <FlatButton
                 label="Ok"
@@ -43,53 +49,59 @@ const customContentStyle = {
             />,
 
 
-
         ];
         return (
-
-            <div>
-                <AppBar
-                    title={"包车APP"}
-
+   <div>
+     <AppBar
+                    style={customContentStyle}
+                    title={"APP首页"}
+                    zDepth={0}
                     iconElementRight={
-                      <Badge
-                      onClick={this._changeHandle.bind(this)}
-      badgeContent={4}
-      primary={true}
-    >
-      <NotificationsIcon />
-    </Badge>
-                    }
+                                  <Badge
+                                      onClick={this._changeHandle.bind(this)}
+                                      badgeContent={4}
+                                      primary={true}
+
+                                    >
+                                      <NotificationsIcon />
+                                    </Badge>
+                                        }
                 />
+
+
                 <Dialog
-                    title="用户登录"
-                    actions={actions}
-                    modal={true}
-                    open={this.props.propsValue}
-                    onClick={this.handleClose.bind(this)}
-                >
+        title="用户登录"
+        actions={actions}
+        modal={true}
+        open={this.props.propsValue}
+        onClick={this.handleClose.bind(this)}
+    >
 
-                        <Link to="login">
-                            <FlatButton label="登录" primary={true}/>
-                        </Link>
+    <Link to="login">
+            <FlatButton label="登录" primary={true}
+                        onClick={this.handleClose.bind(this)}
+            
+            />
+            </Link>
 
-                    <FlatButton label="注册" primary={true} />
-                </Dialog>
-                {this.props.children}
+            <FlatButton label="注册" primary={true}/>
+            </Dialog>
+            {this.props.children}
+    </div>
 
-            </div>
         )
     }
 
-     handleClose(){
-         this.props.dispatch(close());
-     }
-     _changeHandle(){
+    handleClose() {
+        this.props.dispatch(close());
+    }
+
+    _changeHandle() {
 
 
-         this.props.dispatch(open());
+        this.props.dispatch(open());
 
-     }
+    }
 }
 
 function mapStateToProps(state) {
