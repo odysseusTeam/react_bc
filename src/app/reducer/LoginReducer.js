@@ -1,48 +1,47 @@
 /**
  * Created by CHEN on 2016/2/1.
  */
-import {USER_LOGIN,TEST} from '../constants/ActionType'
+import {USER_LOGIN,USER_ERR} from '../constants/ActionType'
+import Wilddog from 'wilddog/lib/wilddog-node'
+let ref=new Wilddog('https://wild-ox-44324.wilddogio.com/user');
+const initialState = {
 
-export default function loginReducer(state,action){
+        "snackbar":{
+            message:'请您登陆',
+            toast:true,
+
+        },
+        session:"登录",
+    };
+
+export default function loginReducer(state=initialState,action){
     switch (action.type) {
+
         case USER_LOGIN:
-         if (action.toast===""){
-             return{
-                 toast:true,
-                 message:'请您登陆，测试账号为spring 密码为123456',
-             }
-         }
-           if(action.name==="spring"&action.pw==="123456"){
-               return{
-                   "snackbar":{
-                       message:'登陆成功',
-                       toast:action.toast,
-                   },
+                return Object.assign({},state,{
+                    "snackbar":{
+                        message:'登陆成功',
+                        toast:true,
 
-               };
+                    },
 
 
-           }else {
-
-               return{
-                   "snackbar":{
-                       message:'登录失败',
-                       toast:action.toast,
-                   },
-
-               };
-           }
+                })
+    
 
             break;
-        default:
-            return{
-
-                "snackbar":{
-                    message:'请您登陆，测试账号为spring 密码为123456',
-                    toast:true,
+        case USER_ERR:
+            return Object.assign({},state,{
+                "snackbar": {
+                    message: '登录失败',
+                    toast: true,
 
                 },
-            }
+
+            });
+            break;
+        default:
+            return state;
 
     }
 }

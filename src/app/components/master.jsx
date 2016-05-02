@@ -6,6 +6,8 @@ import FlatButton from 'material-ui/lib/flat-button';
 import LinearProgress from 'material-ui/lib/linear-progress';
 import NavigationClose from 'material-ui/lib/svg-icons/navigation/close';
 import Badge from 'material-ui/lib/badge';
+import { connect } from 'react-redux';
+import { Router, Route, Link, browserHistory,IndexRoute , Lifecycle, RouteContext } from 'react-router'
 import {
   StylePropable,
   StyleResizable,
@@ -34,7 +36,9 @@ const Master = React.createClass({
     history: React.PropTypes.object,
     location: React.PropTypes.object,
   },
+  routerWillLeave(nextLocation){
 
+  },
   componentDidMount() {
         this.timer = setTimeout(() => this.progress(50), 1000);
       },
@@ -69,6 +73,9 @@ const Master = React.createClass({
       muiTheme: getMuiTheme(),
       leftNavOpen: false,
       completed: 0,
+
+
+
     };
   },
 
@@ -81,7 +88,9 @@ const Master = React.createClass({
   componentWillMount() {
     this.setState({
       muiTheme: this.state.muiTheme,
+
     });
+
   },
 
   componentWillReceiveProps(nextProps, nextContext) {
@@ -174,6 +183,7 @@ const Master = React.createClass({
     });
   },
 
+
   render() {
     const {
       history,
@@ -212,9 +222,10 @@ const Master = React.createClass({
           onLeftIconButtonTouchTap={this.handleTouchTapLeftIconButton}
           title={title}
           zDepth={0}
-          iconElementRight={<FlatButton label="登录" />}
+          iconElementRight={<Link to="login"><FlatButton style={styles.iconButton}label={sessionStorage.username? sessionStorage.username:"登录"}  /></Link>}
           style={styles.appBar}
           showMenuIconButton={showMenuIconButton}
+
        />
 
         <LinearProgress mode="determinate" value={this.state.completed} style={styles.LinearProgress} />
@@ -252,5 +263,14 @@ const Master = React.createClass({
     );
   },
 });
+function mapStateToProps(state) {
+  return {
+    session: state.loginReducer.session,
 
-export default Master;
+
+  }
+}
+
+//将state的指定值映射在props上，将action的所有方法映射在props上
+export default connect(mapStateToProps)(Master);
+

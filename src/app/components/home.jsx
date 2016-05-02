@@ -80,16 +80,16 @@ const HomePage = React.createClass({
       <FullWidthSection style={styles.root}>
         <img style={styles.svgLogo} src="images/logo.png" />
         <div style={styles.tagline}>
-          <h1 style={styles.h1}>Spring Blog</h1>
+          <h1 style={styles.h1}>Mach Power</h1>
           <h2 style={styles.h2}>
             <br/>
 
        <br/><br/><span style={{color:"#f48fb1",fontWeight:"normal"}}></span>
           </h2>
 
-          <Link to="login">
+          <a href="../pages/index.html">
             <RaisedButton label="GO!" primary={true} />
-</Link>
+</a>
 
         </div>
       </FullWidthSection>
@@ -138,20 +138,21 @@ const HomePage = React.createClass({
 
     return (
       <FullWidthSection useContent={true} contentStyle={styles}>
+
         <HomeFeature
           heading="进入主页"
-          route="/pages/about"
           img="images/get-started.svg"
           firstChild={true}
         />
+
         <HomeFeature
           heading="联系我们"
-          route="/posts"
+          route="/posts/team.html"
           img="images/css-framework.svg"
         />
         <HomeFeature
           heading="关于我们"
-          route="/pages/"
+          route="/pages/about"
           img="images/components.svg"
           lastChild={true}
         />

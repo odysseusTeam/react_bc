@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>Mach Power</title>
+		<link href="css/style.css" rel="stylesheet" type="text/css"/>
+		<script src="js/jquery.min.js" type="text/javascript"></script>
+		<script>
+			$(function(){
+				$(window).on('scroll', function(){
+					if($(window).scrollTop() > 90){
+						$('.header').removeClass('large').addClass('small');
+					} else {
+						$('.header').removeClass('small').addClass('large');
+					}
+				});
+			});
+		</script>
+		 <script type="text/javascript">
+
+        window.onload = function () {
+            var container = document.getElementById('container');
+            var list = document.getElementById('list');
+            var buttons = document.getElementById('buttons').getElementsByTagName('span');
+            var prev = document.getElementById('prev');
+            var next = document.getElementById('next');
+            var index = 1;
+            var len = 3;
+            var animated = false;
+            var interval = 2700;
+            var timer;
+
+
+            function animate (offset) {
+                if (offset == 0) {
+                    return;
+                }
+                animated = true;
+                var time = 200;
+                var inteval = 10;
+                var speed = offset/(time/inteval);
+                var left = parseInt(list.style.left) + offset;
+
+                var go = function (){
+                    if ( (speed > 0 && parseInt(list.style.left) < left) || (speed < 0 && parseInt(list.style.left) > left)) {
+                        list.style.left = parseInt(list.style.left) + speed + 'px';
+                        setTimeout(go, inteval);
+                    }
+                    else {
+                        list.style.left = left + 'px';
+                        if(left>-300){
+                            list.style.left = -900 * len + 'px';
+                        }
+                        if(left<(-900 * len)) {
+                            list.style.left = '-900px';
+                        }
+                        animated = false;
+                    }
+                }
+                go();
+            }
+
+            function showButton() {
+                for (var i = 0; i < buttons.length ; i++) {
+                    if( buttons[i].className == 'on'){
+                        buttons[i].className = '';
+                        break;
+                    }
+                }
+                buttons[index - 1].className = 'on';
+            }
+
+            function play() {
+                timer = setTimeout(function () {
+                    next.onclick();
+                    play();
+                }, interval);
+            }
+            function stop() {
+                clearTimeout(timer);
+            }
+
+            next.onclick = function () {
+                if (animated) {
+                    return;
+                }
+                if (index == 3) {
+                    index = 1;
+                }
+                else {
+                    index += 1;
+                }
+                animate(-900);
+                showButton();
+            }
+            prev.onclick = function () {
+                if (animated) {
+                    return;
+                }
+                if (index == 1) {
+                    index = 3;
+                }
+                else {
+                    index -= 1;
+                }
+                animate(900);
+                showButton();
+            }
+
+            for (var i = 0; i < buttons.length; i++) {
+                buttons[i].onclick = function () {
+                    if (animated) {
+                        return;
+                    }
+                    if(this.className == 'on') {
+                        return;
+                    }
+                    var myIndex = parseInt(this.getAttribute('index'));
+                    var offset = -900 * (myIndex - index);
+
+                    animate(offset);
+                    index = myIndex;
+                    showButton();
+                }
+            }
+
+            container.onmouseover = stop;
+            container.onmouseout = play;
+
+            play();
+
+        }
+    </script>
+	</head>
+	<body>
+		<header class="menu">
+			<div class="header large">
+				<div class="inner-bg">
+					<div class="inner">
+					<h1><a href="#"><img src="img/logo.png" alt="logo"></a></h1>
+					<ul class="nav">
+						<li><a class="cur" href="#">首页</a></li>
+						<li><a href="case.html" >案列</a></li>
+						<li><a href="about.html" >关于</a></li>
+						<li><a href="team.html" >团队</a></li>
+						<li><a href="new.html" >新闻</a></li>
+					</ul>
+				</div>
+				</div>
+				
+			</div>
+		</header>
+		<section class="banner"></section>
+		<section class="fuwu">
+			<div class="mainfuwu">
+				<div class="mainfuwu-left">
+					<p class="p24">服务</p>
+					<p class="p18">SERVICE</p>
+				</div>
+				<div class="mainfuwu-right">
+					<div id="container">
+					    <div id="list" style="left: -900px;">
+					    	<div class="fw-box">
+								<p class="img"><img src="img/789.png"/></p>
+								<p class="p18">高并发云端数据处理</p>
+								<p class="p12">超过20种数据处理API，适应图片缩略、剪裁、水印、视频处理、视频水....</p>
+							</div>
+					       <div class="fw-box">
+								<p class="img"><img src="img/123.png"/></p>
+								<p class="p18">安全存储</p>
+								<p class="p12">依托10余年的存储经验积累，完全自主研发的新一代海量存储系....</p>
+							</div>
+							<div class="fw-box">
+								<p class="img"><img src="img/456.png"/></p>
+								<p class="p18">全网加速</p>
+								<p class="p12">融合CDN加速服务全面覆盖，特别关注小运营商区域,专业的质量运营团队....</p>
+							</div>
+							<div class="fw-box">
+								<p class="img"><img src="img/789.png"/></p>
+								<p class="p18">高并发云端数据处理</p>
+								<p class="p12">超过20种数据处理API，适应图片缩略、剪裁、水印、视频处理、视频水....</p>
+							</div>
+							<div class="fw-box">
+								<p class="img"><img src="img/123.png"/></p>
+								<p class="p18">安全存储</p>
+								<p class="p12">依托10余年的存储经验积累，完全自主研发的新一代海量存储系....</p>
+							</div>
+					    </div>
+					    <div id="buttons">
+					        <span index="1" class="on"></span>
+					        <span index="2"></span>
+					        <span index="3"></span>
+					    </div>
+					    <a href="javascript:;" id="prev" class="arrow"></a>
+					    <a href="javascript:;" id="next" class="arrow"></a>
+					</div>
+					
+				</div>
+			</div>
+		</section>
+		<section class="case">
+			<header>
+				<p class="p24">案例</p>
+				<p class="p18">SHOWCASE</p>
+			</header>
+			<article class="case-box">
+				<ul>
+					<li>
+						<div class="projectitem">
+							<div class="projectitem-img">
+								<img src="img/11.png" />
+							</div>
+							<div class="show_shade">
+									<a href="#">
+										<p class="p16">穷游</p>
+										<p class="p12">数据云存储</p>
+									</a>
+									<a href="#" class="show_shade-bot">
+										<i></i>
+									</a>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="projectitem">
+							<div class="projectitem-img">
+								<img src="img/12.png" />
+							</div>
+							<div class="show_shade">
+									<a href="#">
+										<p class="p16">蘑菇街</p>
+										<p class="p12">数据云存储</p>
+									</a>
+									<a href="#" class="show_shade-bot">
+										<i></i>
+									</a>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="projectitem">
+							<div class="projectitem-img">
+								<img src="img/13.png" />
+							</div>
+							<div class="show_shade">
+									<a href="#">
+										<p class="p16">唱吧</p>
+										<p class="p12">数据云存储</p>
+									</a>
+									<a href="#" class="show_shade-bot">
+										<i></i>
+									</a>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="projectitem">
+							<div class="projectitem-img">
+								<img src="img/14.png" />
+							</div>
+							<div class="show_shade">
+									<a href="#">
+										<p class="p16">Camera360</p>
+										<p class="p12">数据云存储</p>
+									</a>
+									<a href="#" class="show_shade-bot">
+										<i></i>
+									</a>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="projectitem">
+							<div class="projectitem-img">
+								<img src="img/15.png"/>
+							</div>
+							<div class="show_shade">
+									<a href="#">
+										<p class="p16">知乎</p>
+										<p class="p12">数据云存储</p>
+									</a>
+									<a href="#" class="show_shade-bot">
+										<i></i>
+									</a>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="projectitem">
+							<div class="projectitem-img">
+								<img src="img/16.png" />
+							</div>
+							<div class="show_shade">
+									<a href="#">
+										<p class="p16">暴走漫画</p></span>
+										<p class="p12">数据云存储</p>
+									</a>
+									<a href="#" class="show_shade-bot">
+										<i></i>
+									</a>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</article>
+		</section>
+		<section class="about1">
+			<header>
+				<p class="p24">关于</p>
+				<p class="p18">ABOUT</p>
+			</header>
+			<article class="about-box">
+				<div class="about-box-left">
+					<p class="p13">Mach Power2011年创立，致力于提供最适合开发者的数据在线托管、传输加速以及云端处理等服务。区别于国内外其他云存储，Mach Power自行研发的全分布式架构解决了其他云存储单一数据中心架构可能存在的风险，同时首创双向加速特性对数据上传下载均加速，使得数据访问速度较传统方案平均提升 50%以上。此外，镜像存储、客户端直传、断点续上传、云端富媒体处理等七牛云存储独有的功能也大大提升了开发效率，最大程度减少了服务器资源浪费。</p>
+				</div>
+				<div class="about-box-right">
+					<a href="#">
+						<img src="img/1444724299307.png" />
+					</a>
+				</div>
+			</article>
+		</section>
+	<footer class="footer">
+		<div class="mainfoot">
+			<div class="contact">
+				<dl class="contact_r_dl">
+                   <dt >佛山2015 Mach Power信息技术有限公司</dt>                            
+                   <dd >电话：010-69557550 / 010-56078880</dd>                            
+                   <dd >地点：佛山市狮山镇狮山大学城</dd>                            
+                   <dd >手机：13811334772 / 18611811021</dd>                            
+                   <dd >邮编：101100</dd>                            
+                   <dd >邮箱： <a href="mail:uelike@uelike.com">uelike@uelike.com</a></dd>                            
+                   <dd >传真：010-65078880 </dd>                        
+				</dl>
+			</div>
+			<div class="contact-r">
+				<div class="bottom">
+  					<a href="#">在线资讯</a>
+				</div>
+				<div class="lianxi">
+					<p class="p"><a href="#"><img src="img/101.png"/></a></p>
+					<p style="margin-left: 5px;"><a href="#">新浪</a></p>
+				</div>
+				<div class="lianxi">
+					<p class="p"><a href="#"><img src="img/99.png"/></a></p>
+					<p style="margin-left: 5px;"><a href="#">微信</a></p>
+				</div>
+				<div class="lianxi">
+					<p class="p"><a href="#"><img src="img/100.png"/></a></p>
+					<p style="margin-left: 5px;"><a href="#">贴吧</a></p>
+				</div>
+			</div>
+		</div>
+	</footer>
+	<figure class="yejiao">
+		<div class="myejiao">
+			<p>© 佛山2015 Mach Power信息技术有限公司 用户使用协议 SLA协议 沪ICP备11037377号-5</p>
+		</div>
+	</figure>
+	</body>
+</html>

@@ -53,7 +53,7 @@
     "jsdom": "^7.0.2",
     "less": "^2.5.1",
     "less-loader": "^2.2.0",
-    "mocha": "*",
+    "mocha": "^2.4.5",
     "mocha-jsdom": "^1.0.0",
     "morgan": "^1.6.1",
     "proxyquire": "^1.7.3",
@@ -84,6 +84,7 @@
     "react-dom": "^0.14.3",
     "react-redux": "^4.1.2",
     "react-tap-event-plugin": "^0.2.1",
-    "redux": "^3.1.7"
+    "redux": "^3.1.7",
+    "wilddog": "^0.6.3"
   }
 }

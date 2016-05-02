@@ -15,7 +15,7 @@ import Snackbar from 'material-ui/lib/snackbar';
 import ActionHome from 'material-ui/lib/svg-icons/action/home';
 import { Router, Route, Link, browserHistory,IndexRoute } from 'react-router'
 import FullWidthSection from './full-width-section';
-
+import {flexStyle}from '../styles/styles';
 let parentoptions = {
     flexDirection: ["row", "row-reverse", "column", "column-reverse"],
     justifyContent: ["flex-start", "flex-end", "center", "space-between", "space-around"],
@@ -24,27 +24,6 @@ let parentoptions = {
     alignContent: ["flex-start", "flex-end", "center", "stretch", "space-between", "space-around"],
 };
 
-let flexStyle = {
-
-    flexContainer: {
-        // 容器需要添加direction才能变成让子元素flex
-
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-
-    flexRow: {
-
-        // 容器需要添加direction才能变成让子元素flex
-        display: 'flex',
-        flexDirection: 'row',
-        alignItems: 'space-around',
-        justifyContent: 'center',
-
-    },
-};
 let style={
     root: {
         overflow: 'hidden',
@@ -61,6 +40,19 @@ let style={
 }
 
  class login extends Component {
+
+     // constructor(props) {
+     //     super(props);
+     //     this.state = {
+     //         toast: false,
+     //     };
+     // }
+     // handleRequestClose = () => {
+     //     this.setState({
+     //         open: false,
+     //     });
+     // };
+
      render() {
         return (
 
@@ -93,14 +85,13 @@ let style={
                         }
 
                     />
-
+                    <Link to="register">
                     <FlatButton
                         style={style.Raised}
                         label="立即注册？"
                         labelPosition="after"
-
-
                     />
+                        </Link>
                 </div>
                 <p>第三方账号登陆</p>
                 <div style={flexStyle.flexRow}>
@@ -116,11 +107,11 @@ let style={
                 <Snackbar
                     open={this.props.sn.toast}
                     message={this.props.sn.message}
-                    action="关闭"
-                    autoHideDuration={5000}
+                
+                    autoHideDuration={3000}
                     //autoHideDuration={this.state.autoHideDuration}
                     //onActionTouchTap={this.handleActionTouchTap}
-                 onRequestClose={this._onRequestClose.bind(this)}
+                 // onRequestClose={this.handleRequestClose}
                 />
             </FullWidthSection>
 
@@ -131,10 +122,10 @@ let style={
      _userLogin(){
          let name=this.refs.getName.getValue();
          let pw =this.refs.getPw.getValue();
-         this.props.dispatch(userLogin(true,name,pw));
+         this.props.dispatch(userLogin(name,pw));
      }
      _onRequestClose(){
-         this.props.dispatch(userLogin(false));
+       
      }
 
 

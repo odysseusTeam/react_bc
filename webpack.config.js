@@ -19,7 +19,8 @@ var config = {
 
     devServer:{
         contentBase: 'src/www',
-        devtool: 'eval',
+        // devtool: 'eval',
+        devtool: false,
         hot: true,
         inline: true,
         port: 3000
@@ -64,6 +65,7 @@ var config = {
             { test: /\.scss$/, loader: 'style!css!sass?sourceMap'},
             //图片文件使用 url-loader 来处理，小于8kb的直接转为base64
             { test: /\.(png|jpg)$/, loader: 'url-loader?limit=8192'},
+            { test: /\.json$/, loader: 'json' },
 
         ]
     },
